@@ -1,0 +1,7 @@
+credentials.json
+*.pyc
+__pycache__
+.DS_Store
+token.pickle
+config.yaml
+.pytest_cache

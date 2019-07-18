@@ -1,0 +1,5 @@
+{{ name1 }}, {{ name2 }}
+
+This is an automated email from a robot that has paired you for a random
+coffee meeting this week. The idea is that this gives you an opportunity
+to meet someone new within the Institute.
