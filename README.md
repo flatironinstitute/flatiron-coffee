@@ -16,7 +16,7 @@ This email will encourage you to arrange a short (think 15 minutes) informal mee
 These meetings can be over coffee on the 11th floor or another common space, but they shouldn't be scheduled in anyone's office.
 You're absolutely welcome to ignore or postpone the meeting suggestion for any reason (if you're traveling or too busy, for example), but do try to let the other person know if you can't make it because you won't ever be paired again!
 
-If you want to sign up, fill out [this form]() (you'll need to be signed in with your Foundation Google account) and you'll be added to this list.
+If you want to sign up, fill out [this form](https://docs.google.com/forms/d/e/1FAIpQLSczmH1bGbal7mdj1gAItsjgnkRetzYlb6dtcFrcsYY5W_dNVA) (you'll need to be signed in with your Foundation Google account) and you'll be added to this list.
 The emails will be delivered from mailgun@mg.dfm.io.
 Please get in touch if you have any issues, questions, comments, or concerns.
 
