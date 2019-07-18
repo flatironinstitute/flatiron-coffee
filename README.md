@@ -23,4 +23,4 @@ Please get in touch if you have any issues, questions, comments, or concerns.
 
 ## License
 
-This is open source software licensed under the terms of the MIT license (see `LICENSE` for all the details).
+This is open source software licensed under the terms of the MIT license (see [`LICENSE`](LICENSE) for all the details).
