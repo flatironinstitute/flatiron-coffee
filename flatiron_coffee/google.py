@@ -1,22 +1,18 @@
 # -*- coding: utf-8 -*-
 
-__all__ = ["get_sheet", "send_invite"]
+__all__ = ["get_sheet"]
 
 import os
-import base64
 import pickle
 import pandas as pd
-from email.mime.text import MIMEText
 
 from googleapiclient.discovery import build
 from google.auth.transport.requests import Request
 from google_auth_oauthlib.flow import InstalledAppFlow
 
-from .config import get_config
 
 SCOPES = [
     "https://www.googleapis.com/auth/spreadsheets.readonly",
-    "https://www.googleapis.com/auth/gmail.send",
 ]
 
 
@@ -63,39 +59,3 @@ def get_sheet(sheet_id, sheet_name):
                                 range=sheet_name).execute()
     values = result.get("values", [])
     return pd.DataFrame(data=values[1:], columns=values[0])
-
-
-def send_message(service, user_id, message):
-    message = service.users().messages().send(
-        userId=user_id, body=message).execute()
-    return message
-
-
-def create_message(sender, to, subject, message_text):
-    message = MIMEText(message_text)
-    message["to"] = to
-    message["from"] = sender
-    message["subject"] = subject
-    return {"raw": base64.urlsafe_b64encode(
-        message.as_string().encode("utf-8")).decode("utf-8")}
-
-
-def send_invite(name1, email1, name2, email2):
-    """Send an invitation email connecting two emails
-
-    Args:
-        name1 (str): The name of the first user
-        email1 (str): The email of the first user
-        name2 (str): The name of the second user
-        email2 (str): The email of the second user
-
-    """
-    service = build("gmail", "v1", credentials=get_creds())
-
-    sender = get_config()["sender_email"]
-    to = "{0} <{1}>, {2} <{3}>".format(name1, email1, name2, email2)
-    subject = "Random coffee"
-    message_text = "This is a test."
-    message = create_message(sender, to, subject, message_text)
-
-    send_message(service, "me", message)
