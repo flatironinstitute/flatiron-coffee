@@ -11,9 +11,7 @@ from google.auth.transport.requests import Request
 from google_auth_oauthlib.flow import InstalledAppFlow
 
 
-SCOPES = [
-    "https://www.googleapis.com/auth/spreadsheets.readonly",
-]
+SCOPES = ["https://www.googleapis.com/auth/spreadsheets.readonly"]
 
 
 def get_creds():
@@ -32,7 +30,8 @@ def get_creds():
             creds.refresh(Request())
         else:
             flow = InstalledAppFlow.from_client_secrets_file(
-                "credentials.json", SCOPES)
+                "credentials.json", SCOPES
+            )
             creds = flow.run_local_server(port=0)
 
         # Save the credentials for the next run
@@ -55,7 +54,8 @@ def get_sheet(sheet_id, sheet_name):
     """
     service = build("sheets", "v4", credentials=get_creds())
     sheet = service.spreadsheets()
-    result = sheet.values().get(spreadsheetId=sheet_id,
-                                range=sheet_name).execute()
+    result = (
+        sheet.values().get(spreadsheetId=sheet_id, range=sheet_name).execute()
+    )
     values = result.get("values", [])
     return pd.DataFrame(data=values[1:], columns=values[0])

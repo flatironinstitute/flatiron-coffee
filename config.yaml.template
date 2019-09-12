@@ -4,3 +4,4 @@ form_url:
 sender_email:
 mailgun_api_key:
 mailgun_domain:
+debug:

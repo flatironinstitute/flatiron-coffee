@@ -5,3 +5,4 @@ __pycache__
 token.pickle
 config.yaml
 .pytest_cache
+pairs.db

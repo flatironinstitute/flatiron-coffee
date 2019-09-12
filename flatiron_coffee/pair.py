@@ -26,12 +26,13 @@ def find_pairs(emails, previous_pairs):
 
     # Construct the set of all possible meetings
     possible_meetings = {
-        tuple(sorted(meeting))
-        for meeting in itertools.combinations(emails, 2)
+        tuple(sorted(meeting)) for meeting in itertools.combinations(emails, 2)
     }
 
     # Remove previous pairings
-    meetings = possible_meetings-set(tuple(sorted(p)) for p in previous_pairs)
+    meetings = possible_meetings - set(
+        tuple(sorted(p)) for p in previous_pairs
+    )
 
     # Set things up for networkx
     w = ({"weight": 1.0},)
@@ -44,4 +45,10 @@ def find_pairs(emails, previous_pairs):
 
     # Use https://en.wikipedia.org/wiki/Blossom_algorithm to find the maximal
     # matching
-    return list(tuple(sorted(p)) for p in nx.max_weight_matching(graph))
+    matches = list(tuple(sorted(p)) for p in nx.max_weight_matching(graph))
+
+    # Find the unmatched emails
+    all_matched = set(e for pair in matches for e in pair)
+    unmatched = [e for e in emails if e not in all_matched]
+
+    return matches, unmatched

@@ -12,11 +12,15 @@ def save_pair(email1, email2):
 
     with sqlite3.connect(CACHE_FILENAME) as conn:
         c = conn.cursor()
-        c.execute("CREATE TABLE IF NOT EXISTS pairs "
-                  "(key TEXT PRIMARY KEY, email1 TEXT, email2 TEXT)")
-        c.execute("INSERT OR REPLACE INTO cache (key, email1, email2) "
-                  "VALUES (?, ?, ?)",
-                  (key, email1, email2))
+        c.execute(
+            "CREATE TABLE IF NOT EXISTS pairs "
+            "(key TEXT PRIMARY KEY, email1 TEXT, email2 TEXT)"
+        )
+        c.execute(
+            "INSERT OR REPLACE INTO pairs (key, email1, email2) "
+            "VALUES (?, ?, ?)",
+            (key, email1, email2),
+        )
 
 
 def get_all_previous_pairs():

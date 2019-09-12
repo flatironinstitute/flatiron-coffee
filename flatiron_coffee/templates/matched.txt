@@ -1,0 +1,27 @@
+Dear {{ name1 }} and {{ name2 }},
+
+This is an automated email from a robot that has paired you for a random
+coffee meeting this week. This program is designed to introduce you to
+new people from all across Flatiron by encouraging you to set up brief
+one-on-one coffee meetings with new colleagues each week. The hope is
+that this will help identify common interests, foster new collaborations,
+and perhaps even start new friendships.
+
+This email is here to encourage you two to arrange a short (think 15
+minutes) informal meeting some time this week. These meetings can be over
+coffee on the 11th floor or another common space, but they shouldn't be
+scheduled in anyone's office.
+
+You're welcome to ignore or postpone the meeting suggestion for any reason
+(if you're traveling or too busy, for example), but do try to let each other
+know if you can't make it because you won't ever be paired again!
+
+You can opt out of this program here: https://forms.gle/2ZMLRgqZQsvupSVSA
+
+Enjoy your coffee, tea, or similar!
+
+Best,
+The Flatiron Coffee Robot
+
+PS Get in touch with Dan (dforeman-mackey@flatironinstitute.org) if you have
+any questions or concerns.
