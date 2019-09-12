@@ -11,8 +11,8 @@ These types of programs have been successful in other companies and there are ev
 
 ## How does it work?
 
-When you sign up, your email address will be added to a pool and each week you'll receive an email connecting you with another employee from that pool.
-This email will encourage you to arrange a short (think 15 minutes) informal meeting some time during the week.
+When you sign up, your email address will be added to a pool and every other Monday you'll receive an email connecting you with another employee from that pool.
+This email will encourage you to arrange a short (think 15 minutes) informal meeting some time during the following two weeks.
 These meetings can be over coffee on the 11th floor or another common space, but they shouldn't be scheduled in anyone's office.
 You're absolutely welcome to ignore or postpone the meeting suggestion for any reason (if you're traveling or too busy, for example), but do try to let the other person know if you can't make it because you won't ever be paired again!
 
