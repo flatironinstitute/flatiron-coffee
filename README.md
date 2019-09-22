@@ -4,7 +4,7 @@ Meet your colleagues from across the Institute!
 
 ## What's this all about?
 
-This bot is designed to introduce you to new people from all across Flatiron by encouraging you to set up brief one-on-one coffee meetings with new colleagues each week.
+This bot is designed to introduce you to new people from all across Flatiron by encouraging you to set up brief a one-on-one coffee meeting with a new colleague every two weeks.
 The hope is that this will help identify common interests, foster new collaborations, and perhaps even start new friendships.
 These types of programs have been successful in other companies and there are even some other open source options, but (in the Flatiron style) we decided to roll our own lightweight open source solution.
 

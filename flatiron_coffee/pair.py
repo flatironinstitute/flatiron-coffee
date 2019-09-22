@@ -2,11 +2,12 @@
 
 __all__ = ["find_pairs"]
 
+import random
 import itertools
 import networkx as nx
 
 
-def find_pairs(emails, previous_pairs):
+def find_pairs(emails, previous_pairs, shuffle=False):
     """Find a set of pairings that have not previously been suggested
 
     This implementation is based closely on the implementation from the MIT
@@ -36,7 +37,9 @@ def find_pairs(emails, previous_pairs):
 
     # Set things up for networkx
     w = ({"weight": 1.0},)
-    meetings = [m + w for m in meetings]
+    meetings = [m + w for m in sorted(meetings)]
+    if shuffle:
+        random.shuffle(meetings)
 
     # Build the graph
     graph = nx.Graph()
@@ -51,4 +54,4 @@ def find_pairs(emails, previous_pairs):
     all_matched = set(e for pair in matches for e in pair)
     unmatched = [e for e in emails if e not in all_matched]
 
-    return matches, unmatched
+    return list(sorted(matches)), list(sorted(unmatched))
