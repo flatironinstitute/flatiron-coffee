@@ -1,4 +1,4 @@
-Dear {{ name1 }} and {{ name2 }},
+Dear {{name1}} and {{name2}},
 
 This is an automated email from a robot that has paired you for a random
 coffee meeting in the next two weeks. This program is designed to introduce
@@ -16,12 +16,12 @@ You're welcome to ignore or postpone the meeting suggestion for any reason
 (if you're traveling or too busy, for example), but do try to let each other
 know if you can't make it because you won't ever be paired again!
 
-You can opt out of this program here: https://forms.gle/2ZMLRgqZQsvupSVSA
+You can opt out of this program here: {form_url}
 
 Enjoy your coffee, tea, or similar!
 
 Best,
 The Flatiron Coffee Robot
 
-PS Get in touch with Dan (dforeman-mackey@flatironinstitute.org) if you have
+PS Get in touch with {admin_name} ({admin_email}) if you have
 any questions or concerns.

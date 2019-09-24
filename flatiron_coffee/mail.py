@@ -4,11 +4,8 @@ __all__ = ["send_message"]
 
 import requests
 
-from .config import get_config
 
-
-def send_message(emails, message, subject=None):
-    config = get_config()
+def send_message(config, emails, message, subject=None):
     if subject is None:
         subject = "Flatiron coffee"
     if config["debug"]:

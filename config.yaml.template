@@ -1,7 +1,11 @@
+cred_file:
 sheet_id:
 sheet_name:
+cache_name:
 form_url:
+admin_name:
+admin_email:
 sender_email:
 mailgun_api_key:
 mailgun_domain:
-debug:
+debug: true

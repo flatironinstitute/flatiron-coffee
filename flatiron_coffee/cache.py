@@ -1,32 +1,26 @@
 # -*- coding: utf-8 -*-
 
-import os
-import sqlite3
+__all__ = ["save_pairs", "get_all_previous_pairs"]
 
-CACHE_FILENAME = "pairs.db"
-
-
-def save_pair(email1, email2):
-    email1, email2 = sorted((email1, email2))
-    key = email1 + " : " + email2
-
-    with sqlite3.connect(CACHE_FILENAME) as conn:
-        c = conn.cursor()
-        c.execute(
-            "CREATE TABLE IF NOT EXISTS pairs "
-            "(key TEXT PRIMARY KEY, email1 TEXT, email2 TEXT)"
-        )
-        c.execute(
-            "INSERT OR REPLACE INTO pairs (key, email1, email2) "
-            "VALUES (?, ?, ?)",
-            (key, email1, email2),
-        )
+from .google import get_service
 
 
-def get_all_previous_pairs():
-    if not os.path.exists(CACHE_FILENAME):
-        return []
-    with sqlite3.connect(CACHE_FILENAME) as conn:
-        c = conn.cursor()
-        c.execute("SELECT email1, email2 FROM pairs")
-        return c.fetchall()
+def save_pairs(config, pairs):
+    service = get_service(config)
+    body = dict(values=[list(sorted(pair)) for pair in pairs])
+    service.values().append(
+        spreadsheetId=config["sheet_id"],
+        range=config["cache_name"],
+        body=body,
+        valueInputOption="RAW",
+    ).execute()
+
+
+def get_all_previous_pairs(config):
+    return (
+        get_service(config)
+        .values()
+        .get(spreadsheetId=config["sheet_id"], range=config["cache_name"])
+        .execute()
+        .get("values", [])
+    )
