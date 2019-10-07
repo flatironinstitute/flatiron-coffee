@@ -8,6 +8,6 @@ __all__ = ["get_config"]
 import yaml
 
 
-def get_config(filename="config.yaml"):
+def get_config(filename="settings/config.yaml"):
     with open(filename, "r") as f:
         return yaml.safe_load(f)

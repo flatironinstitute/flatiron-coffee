@@ -6,3 +6,4 @@ token.pickle
 config.yaml
 .pytest_cache
 pairs.db
+settings

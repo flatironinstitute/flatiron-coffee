@@ -21,5 +21,4 @@ def send_message(config, emails, message, subject=None):
         "subject": subject,
         "text": message,
     }
-    if not config["debug"]:
-        return requests.post(url, auth=auth, data=data)
+    return requests.post(url, auth=auth, data=data)

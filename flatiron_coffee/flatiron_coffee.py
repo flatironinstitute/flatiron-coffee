@@ -45,6 +45,16 @@ def find_matches(dry_run=True):
     # Find the matches
     matches, unmatched = pair.find_pairs(emails, previous, shuffle=True)
 
+    # Send the summary to the admin
+    admin_email = config.get("admin_email", None)
+    if admin_email is not None:
+        msg = "Matched:\n\n"
+        msg += "\n".join(map("{0[0]}, {0[1]}".format, matches))
+        msg += "\n\nUnmatched:\n\n"
+        msg += "\n".join(unmatched)
+        mail.send_message(config, [admin_email], msg)
+
+    # Load the templates
     matched_temp = _load_and_wrap(config, "templates/matched.txt")
     unmatched_temp = _load_and_wrap(config, "templates/unmatched.txt")
 
@@ -58,8 +68,8 @@ def find_matches(dry_run=True):
         else:
             print("Match: {0} {1}".format(email1, email2))
 
-    # if not config["debug"]:
-    cache.save_pairs(config, matches)
+    if not config["debug"]:
+        cache.save_pairs(config, matches)
 
     for email in unmatched:
         name = sheet.loc[email_map[email]]["Preferred name"]
