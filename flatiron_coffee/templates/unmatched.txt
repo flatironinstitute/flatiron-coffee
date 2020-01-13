@@ -6,9 +6,3 @@ you have already been paired with all the other participants. I'll send
 you a meeting suggestion as soon as I can!
 
 You can opt out of this program here: {form_url}
-
-Best,
-The Flatiron Coffee Robot
-
-PS Get in touch with {admin_name} ({admin_email}) if you have
-any questions or concerns.

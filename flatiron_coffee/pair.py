@@ -7,7 +7,7 @@ import itertools
 import networkx as nx
 
 
-def find_pairs(emails, previous_pairs, shuffle=False):
+def find_pairs(emails, previous_pairs, shuffle=False, group_map=None):
     """Find a set of pairings that have not previously been suggested
 
     This implementation is based closely on the implementation from the MIT
@@ -24,6 +24,8 @@ def find_pairs(emails, previous_pairs, shuffle=False):
         list: A list of tuples defining pairs
 
     """
+    if group_map is None:
+        group_map = dict()
 
     # Construct the set of all possible meetings
     possible_meetings = {
@@ -36,15 +38,23 @@ def find_pairs(emails, previous_pairs, shuffle=False):
     )
 
     # Set things up for networkx
-    w = ({"weight": 1.0},)
-    meetings = [m + w for m in sorted(meetings)]
+    # w = ({"weight": 1.0},)
+    # meetings = [m + w for m in sorted(meetings)]
+    edges = []
+    for meeting in meetings:
+        k1 = group_map.get(meeting[0], "unknown")
+        k2 = group_map.get(meeting[1], "unknown")
+        if k1 == k2:
+            edges.append((meeting[0], meeting[1], {"weight": 0.1}))
+        else:
+            edges.append((meeting[0], meeting[1], {"weight": 1.0}))
     if shuffle:
-        random.shuffle(meetings)
+        random.shuffle(edges)
 
     # Build the graph
     graph = nx.Graph()
     graph.add_nodes_from(emails)
-    graph.add_edges_from(meetings)
+    graph.add_edges_from(edges)
 
     # Use https://en.wikipedia.org/wiki/Blossom_algorithm to find the maximal
     # matching

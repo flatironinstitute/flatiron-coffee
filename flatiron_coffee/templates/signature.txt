@@ -1,0 +1,4 @@
+Best,
+The Flatiron Coffee Robot
+
+PS Get in touch with {admin_name} ({admin_email}) if you have any questions or concerns.

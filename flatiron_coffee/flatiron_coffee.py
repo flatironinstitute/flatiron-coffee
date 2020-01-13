@@ -11,15 +11,26 @@ from .config import get_config
 from . import cache, google, pair, mail
 
 
-def _load_and_wrap(config, filename):
+def _load_and_wrap(config, filename, wrap=True):
     txt = (
         pkg_resources.resource_string("flatiron_coffee", filename)
         .decode("utf-8")
         .format(**config)
     )
-    return "\n\n".join(
-        ["\n".join(textwrap.wrap(par, width=79)) for par in txt.split("\n\n")]
+    if not wrap:
+        return txt
+    return (
+        "\n\n".join([par.replace("\n", " ") for par in txt.split("\n\n")])
+        + "\n\n"
     )
+
+
+def get_emails():
+    config = get_config()
+    sheet = google.get_sheet(config)
+    sheet = sheet[sheet["Opt in"] == "Yes"]
+    for email in sheet["Email Address"].values:
+        print(email)
 
 
 def find_matches(dry_run=True):
@@ -38,12 +49,17 @@ def find_matches(dry_run=True):
     email_map = dict(zip(sheet["Email Address"], sheet.index))
     emails = list(email_map.keys())
 
+    # A map between emails and groups
+    group_map = dict(zip(sheet["Email Address"], sheet["Affiliation"]))
+
     # Seed with the date
     today = date.today()
     random.seed(int("{0.year:04d}{0.month:02d}{0.day:02d}".format(today)))
 
     # Find the matches
-    matches, unmatched = pair.find_pairs(emails, previous, shuffle=True)
+    matches, unmatched = pair.find_pairs(
+        emails, previous, shuffle=True, group_map=group_map
+    )
 
     # Send the summary to the admin
     admin_email = config.get("admin_email", None)
@@ -55,8 +71,9 @@ def find_matches(dry_run=True):
         mail.send_message(config, [admin_email], msg)
 
     # Load the templates
-    matched_temp = _load_and_wrap(config, "templates/matched.txt")
-    unmatched_temp = _load_and_wrap(config, "templates/unmatched.txt")
+    sign = _load_and_wrap(config, "templates/signature.txt", wrap=False)
+    matched_temp = _load_and_wrap(config, "templates/matched.txt") + sign
+    unmatched_temp = _load_and_wrap(config, "templates/unmatched.txt") + sign
 
     for match in matches:
         email1, email2 = match
