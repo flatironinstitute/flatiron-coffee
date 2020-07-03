@@ -3,7 +3,6 @@
 __all__ = ["find_matches"]
 
 import random
-import textwrap
 import pkg_resources
 from datetime import date
 
@@ -28,7 +27,12 @@ def _load_and_wrap(config, filename, wrap=True):
 def get_emails():
     config = get_config()
     sheet = google.get_sheet(config)
-    sheet = sheet[sheet["Opt in"] == "Yes"]
+
+    if config["remote"]:
+        sheet = sheet[sheet["Remote"] == "Yes"]
+    else:
+        sheet = sheet[sheet["Opt in"] == "Yes"]
+
     for email in sheet["Email Address"].values:
         print(email)
 
@@ -43,7 +47,10 @@ def find_matches(dry_run=True):
     sheet = google.get_sheet(config)
 
     # Remove those who have opted out
-    sheet = sheet[sheet["Opt in"] == "Yes"]
+    if config["remote"]:
+        sheet = sheet[sheet["Remote"] == "Yes"]
+    else:
+        sheet = sheet[sheet["Opt in"] == "Yes"]
 
     # A map between emails and IDs
     email_map = dict(zip(sheet["Email Address"], sheet.index))
@@ -72,7 +79,12 @@ def find_matches(dry_run=True):
 
     # Load the templates
     sign = _load_and_wrap(config, "templates/signature.txt", wrap=False)
-    matched_temp = _load_and_wrap(config, "templates/matched.txt") + sign
+    if config["remote"]:
+        matched_temp = (
+            _load_and_wrap(config, "templates/matched-remote.txt") + sign
+        )
+    else:
+        matched_temp = _load_and_wrap(config, "templates/matched.txt") + sign
     unmatched_temp = _load_and_wrap(config, "templates/unmatched.txt") + sign
 
     for match in matches:
