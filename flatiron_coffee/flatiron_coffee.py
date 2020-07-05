@@ -29,7 +29,7 @@ def get_emails():
     sheet = google.get_sheet(config)
 
     if config["remote"]:
-        sheet = sheet[sheet["Remote"] == "Yes"]
+        sheet = sheet[sheet["Virtual"] == "Yes"]
     else:
         sheet = sheet[sheet["Opt in"] == "Yes"]
 
@@ -48,7 +48,7 @@ def find_matches(dry_run=True):
 
     # Remove those who have opted out
     if config["remote"]:
-        sheet = sheet[sheet["Remote"] == "Yes"]
+        sheet = sheet[sheet["Virtual"] == "Yes"]
     else:
         sheet = sheet[sheet["Opt in"] == "Yes"]
 
