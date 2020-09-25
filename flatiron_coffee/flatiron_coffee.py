@@ -29,7 +29,7 @@ def get_emails():
     sheet = google.get_sheet(config)
 
     if config["remote"]:
-        sheet = sheet[sheet["Virtual"] == "Yes"]
+        sheet = sheet[(sheet["Virtual"] == "Yes") & (sheet["Opt in"] == "Yes")]
     else:
         sheet = sheet[sheet["Opt in"] == "Yes"]
 
@@ -57,7 +57,7 @@ def find_matches(dry_run=True):
     emails = list(email_map.keys())
 
     # A map between emails and groups
-    group_map = dict(zip(sheet["Email Address"], sheet["Affiliation"]))
+    group_map = dict(zip(sheet["Email Address"], sheet.get("Affiliation", "any")))
 
     # Seed with the date
     today = date.today()

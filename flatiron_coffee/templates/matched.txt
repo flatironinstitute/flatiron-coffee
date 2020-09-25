@@ -2,15 +2,17 @@ Dear {{name1}} and {{name2}},
 
 This is an automated email from a robot that has paired you for a random
 coffee meeting in the next two weeks. This program is designed to introduce
-you to new people from all across Flatiron by encouraging you to set up
-brief one-on-one coffee meetings with new colleagues each week. The hope is
+you to new colleagues by encouraging you to set up
+brief one-on-one coffee meetings with a new person every 2 weeks. The hope is
 that this will help identify common interests, foster new collaborations,
-and perhaps even start new friendships.
+and perhaps even start friendships.
 
 This email is here to encourage you two to arrange a short (think 15
-minutes) informal meeting some time in the next two weeks. These meetings
-can be over coffee on the 11th floor or another common space, but they
-shouldn't be in anyone's office.
+minutes) informal meeting some time in the next two weeks. For the time
+being, most of these meetings will be held remotely over Zoom or the platform of your
+choice. If you are both in the office and both feel comfortable with it,
+feel free to arrange an in-person meeting, but make sure that you follow
+the recommended safety procedures!
 
 You're welcome to ignore or postpone the meeting suggestion for any reason
 (if you're traveling or too busy, for example), but do try to let each other

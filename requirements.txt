@@ -1,0 +1,7 @@
+black
+flake8
+pyyaml
+google-api-python-client
+pandas
+requests
+networkx

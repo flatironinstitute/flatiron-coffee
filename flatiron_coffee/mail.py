@@ -7,7 +7,7 @@ import requests
 
 def send_message(config, emails, message, subject=None):
     if subject is None:
-        subject = "Flatiron coffee"
+        subject = config.get("email_subject", "Flatiron coffee")
     if config["debug"]:
         emails = ["foreman.mackey@gmail.com"]
         subject = "[TEST] " + subject
