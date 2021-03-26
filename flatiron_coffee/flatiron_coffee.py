@@ -2,20 +2,18 @@
 
 __all__ = ["find_matches"]
 
+import os
 import random
-import pkg_resources
 from datetime import date
+from functools import partial
 
 from .config import get_config
 from . import cache, google, pair, mail
 
 
 def _load_and_wrap(config, filename, wrap=True):
-    txt = (
-        pkg_resources.resource_string("flatiron_coffee", filename)
-        .decode("utf-8")
-        .format(**config)
-    )
+    with open(filename, "r", encoding="utf-8") as f:
+        txt = f.read().format(**config)
     if not wrap:
         return txt
     return (
@@ -37,8 +35,9 @@ def get_emails():
         print(email)
 
 
-def find_matches(dry_run=True):
-    config = get_config()
+def find_matches(site, dry_run=True):
+    site_path = partial(os.path.join, "sites", site)
+    config = get_config(site_path("config.yaml"))
     if dry_run:
         config["debug"] = True
     previous = cache.get_all_previous_pairs(config)
@@ -57,7 +56,9 @@ def find_matches(dry_run=True):
     emails = list(email_map.keys())
 
     # A map between emails and groups
-    group_map = dict(zip(sheet["Email Address"], sheet.get("Affiliation", "any")))
+    group_map = dict(
+        zip(sheet["Email Address"], sheet.get("Affiliation", "any"))
+    )
 
     # Seed with the date
     today = date.today()
@@ -78,14 +79,15 @@ def find_matches(dry_run=True):
         mail.send_message(config, [admin_email], msg)
 
     # Load the templates
-    sign = _load_and_wrap(config, "templates/signature.txt", wrap=False)
-    if config["remote"]:
-        matched_temp = (
-            _load_and_wrap(config, "templates/matched-remote.txt") + sign
-        )
-    else:
-        matched_temp = _load_and_wrap(config, "templates/matched.txt") + sign
-    unmatched_temp = _load_and_wrap(config, "templates/unmatched.txt") + sign
+    sign = _load_and_wrap(
+        config, site_path("templates/signature.txt"), wrap=False
+    )
+    matched_temp = (
+        _load_and_wrap(config, site_path("templates/matched.txt")) + sign
+    )
+    unmatched_temp = (
+        _load_and_wrap(config, site_path("templates/unmatched.txt")) + sign
+    )
 
     for match in matches:
         email1, email2 = match

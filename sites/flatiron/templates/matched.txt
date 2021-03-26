@@ -14,9 +14,9 @@ choice. If you are both in the office and both feel comfortable with it,
 feel free to arrange an in-person meeting, but make sure that you follow
 the recommended safety procedures!
 
-You're welcome to ignore or postpone the meeting suggestion for any reason
-(if you're traveling or too busy, for example), but do try to let each other
-know if you can't make it because you won't ever be paired again!
+You're welcome to ignore or postpone the meeting suggestion for any reason, but
+do try to let each other know if you can't make it because you won't ever be
+paired again!
 
 You can opt out of this program here: {form_url}
 

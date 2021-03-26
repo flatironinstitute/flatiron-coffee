@@ -1,0 +1,8 @@
+Dear {{name}},
+
+This is an automated email from a robot. I could not find you a meeting
+this week either because there was an odd number of sign ups or because
+you have already been paired with all the other participants. I'll send
+you a meeting suggestion as soon as I can!
+
+You can opt out of this program here: {form_url}
