@@ -93,6 +93,8 @@ def find_matches(site, dry_run=True):
         email1, email2 = match
         name1 = sheet.loc[email_map[email1]]["Preferred name"]
         name2 = sheet.loc[email_map[email2]]["Preferred name"]
+        email1 = f"{name1} <{email1}>"
+        email2 = f"{name2} <{email2}>"
         txt = matched_temp.format(name1=name1, name2=name2)
         if not config["debug"]:
             mail.send_message(config, [email1, email2], txt)
@@ -104,6 +106,7 @@ def find_matches(site, dry_run=True):
 
     for email in unmatched:
         name = sheet.loc[email_map[email]]["Preferred name"]
+        email = f"{name} <{email}>"
         txt = unmatched_temp.format(name=name)
         if not config["debug"]:
             mail.send_message(config, [email], txt)

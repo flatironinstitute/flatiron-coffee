@@ -1,0 +1,20 @@
+Dear {{name1}} and {{name2}},
+
+You’re receiving this email because you signed up for Coffee Connections. This
+is an automated email from a robot that has paired you for a random coffee
+meeting in the next two weeks. This program is designed to introduce you to new
+colleagues by encouraging you to set up brief one-on-one coffee meetings with a
+new person every 2 weeks. The hope is that this will help identify common
+interests, foster new collaborations, and perhaps even start friendships.
+
+This email is here to encourage you two to arrange a short (think 15 minutes)
+informal meeting sometime in the next two weeks. If you are both in the office
+and both feel comfortable with it, feel free to arrange an in-person meeting.
+
+You're welcome to ignore or postpone the meeting suggestion for any reason, but
+do try to let each other know if you can't make it because each unique pairing
+only happens once!
+
+You can opt out of this program here: {form_url}
+
+Enjoy your coffee, tea, or similar!
