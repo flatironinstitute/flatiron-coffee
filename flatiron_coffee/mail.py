@@ -47,6 +47,7 @@ def send_message_smtp(config, emails, message, subject=None):
     msg["Subject"] = subject
     msg["From"] = config["sender_email"]
     msg["To"] = ",".join(emails)
+    msg["Reply-To"] = ",".join(emails)
 
     with SMTP(smtp_host, port=smtp_port) as conn:
         conn.set_debuglevel(False)

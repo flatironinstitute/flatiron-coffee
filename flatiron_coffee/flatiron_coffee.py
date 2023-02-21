@@ -56,8 +56,9 @@ def find_matches(site, dry_run=True):
     emails = list(email_map.keys())
 
     # A map between emails and groups
+    group_column_name = config.get("group_column_name", "Affiliation")
     group_map = dict(
-        zip(sheet["Email Address"], sheet.get("Affiliation", "any"))
+        zip(sheet["Email Address"], sheet.get(group_column_name, "any"))
     )
 
     # Seed with the date
