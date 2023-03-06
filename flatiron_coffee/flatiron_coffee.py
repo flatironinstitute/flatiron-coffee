@@ -70,15 +70,6 @@ def find_matches(site, dry_run=True):
         emails, previous, shuffle=True, group_map=group_map
     )
 
-    # Send the summary to the admin
-    admin_email = config.get("admin_email", None)
-    if admin_email is not None:
-        msg = "Matched:\n\n"
-        msg += "\n".join(map("{0[0]}, {0[1]}".format, matches))
-        msg += "\n\nUnmatched:\n\n"
-        msg += "\n".join(unmatched)
-        mail.send_message(config, [admin_email], msg)
-
     # Load the templates
     sign = _load_and_wrap(
         config, site_path("templates/signature.txt"), wrap=False
@@ -90,26 +81,36 @@ def find_matches(site, dry_run=True):
         _load_and_wrap(config, site_path("templates/unmatched.txt")) + sign
     )
 
-    for match in matches:
-        email1, email2 = match
-        name1 = sheet.loc[email_map[email1]]["Preferred name"]
-        name2 = sheet.loc[email_map[email2]]["Preferred name"]
-        email1 = f"{name1} <{email1}>"
-        email2 = f"{name2} <{email2}>"
-        txt = matched_temp.format(name1=name1, name2=name2)
-        if not config["debug"]:
-            mail.send_message(config, [email1, email2], txt)
-        else:
-            print("Match: {0} {1}".format(email1, email2))
+    with mail.Email(config) as mailer:
+        # Send the summary to the admin
+        admin_email = config.get("admin_email", None)
+        if admin_email is not None:
+            msg = "Matched:\n\n"
+            msg += "\n".join(map("{0[0]}, {0[1]}".format, matches))
+            msg += "\n\nUnmatched:\n\n"
+            msg += "\n".join(unmatched)
+            mailer.send_message([admin_email], msg)
 
-    if not config["debug"]:
-        cache.save_pairs(config, matches)
+        for match in matches:
+            email1, email2 = match
+            name1 = sheet.loc[email_map[email1]]["Preferred name"]
+            name2 = sheet.loc[email_map[email2]]["Preferred name"]
+            email1 = f"{name1} <{email1}>"
+            email2 = f"{name2} <{email2}>"
+            txt = matched_temp.format(name1=name1, name2=name2)
+            if not config["debug"]:
+                mailer.send_message([email1, email2], txt)
+            else:
+                print("Match: {0} {1}".format(email1, email2))
 
-    for email in unmatched:
-        name = sheet.loc[email_map[email]]["Preferred name"]
-        email = f"{name} <{email}>"
-        txt = unmatched_temp.format(name=name)
         if not config["debug"]:
-            mail.send_message(config, [email], txt)
-        else:
-            print("Unmatched: {0}".format(email))
+            cache.save_pairs(config, matches)
+
+        for email in unmatched:
+            name = sheet.loc[email_map[email]]["Preferred name"]
+            email = f"{name} <{email}>"
+            txt = unmatched_temp.format(name=name)
+            if not config["debug"]:
+                mailer.send_message([email], txt)
+            else:
+                print("Unmatched: {0}".format(email))
